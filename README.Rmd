@@ -9,7 +9,14 @@ bibliography: "references.bib"
 # %\VignetteEngine{knitr::rmarkdown}
 # %\VignetteEncoding{UTF-8}
 ---
-  ```{r, include=F}
+
+```{r, echo = FALSE}
+knitr::opts_chunk$set(
+  fig.path = "README_figs/README-"
+)
+```
+
+```{r, include=F}
 devtools::load_all('/home/brent/myRpackages/mixem/mixem')
 library(knitcitations)
 cleanbib()
