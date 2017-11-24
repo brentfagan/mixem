@@ -2,7 +2,9 @@
 # title: "Introduction to mixem"
 # author: "Brent Fagan"
 # date: "2017-07-16"
-output: rmarkdown::github_document
+output:   
+  html_document:
+    keep_md: true
 bibliography: "references.bib"
 # vignette: >
 #   %\VignetteIndexEntry{Vignette Title}
@@ -22,6 +24,9 @@ library(knitcitations)
 cleanbib()
 options("citation_format" = "pandoc")
 ```
+
+## Introduction to `mixem`
+
 Modelling losses is a problem of interest arising frequently in finance and actuarial science. Completely monotone densities have properties that make them well suited for modelling loss distributions. While parametric approaches are popular, they require rather strong assumptions about the data, and model misspecification can lead to serious inferential errors. Strictly nonparametric approaches tend to fit the data well but do not provide an appropriate amount of smoothing. In order to strike a balance between these two extremes one can take a semiparametric approach. It can be shown that completely monotone densities are equivalent to mixtures of exponential distributions. Although this places a parametric restriction on the estimation problem, no parametric assumption is required about the mixing measure. `mixem` implements the expectation-maximization (EM) algorithm to compute maximum likelihood estimates (MLEs) of completely monotone densities for situations when data is grouped, censored, and when no grouping or censoring of the data is present. These methods are easily extended with Fast Fourier Transform techniques for use in common aggregate loss models.
 
 ## `mixem` Info
@@ -34,7 +39,7 @@ In the plain vanilla situation where no grouping or censoring of the data is pre
 
 Consider the following scenario where `n = 500` data points are generated from an exponential mixture distribution with rate parameters $\lambda_1 = \frac{1}{500}, \lambda_2 = \frac{1}{5000}, \lambda_3 = \frac{1}{50000}$ and corresponding mixing proportions $p_1 = 0.2, p_2 = 0.4, p_3 = 0.4$
 
-  ```{r, fig.height=4, fig.width=6, fig.align='center'}
+```{r, fig.height=4, fig.width=6, fig.align='center'}
 library(ggplot2)
 library(scales)
 
@@ -113,7 +118,7 @@ In aggregate loss models we are interested in the distribution of the sum $S = X
 
 Recall from earlier we used `em_fit` to estimate the completely monotone density $f$ parametrized by $\lambda_1 = \frac{1}{500}, \lambda_2 = \frac{1}{5000}, \lambda_3 = \frac{1}{50000}$ and corresponding mixing proportions $p_1 = 0.2, p_2 = 0.4, p_3 = 0.4$. If we want to now estimate the m-fold convolution of $f$ where $m=10$, we simply do the following:
 
-  ```{r, fig.height=4, fig.width=6, fig.align='center'}
+```{r, fig.height=4, fig.width=6, fig.align='center'}
 density <- m_fold_convolution(m = 10, lambda = 1/fit$mean, p = fit$p,
                               xmax = 1e+6, N = 2^21)
 ggplot(data = data.frame(density), aes(x = x, y = convolution)) + geom_line() +
