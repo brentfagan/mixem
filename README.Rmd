@@ -2,9 +2,7 @@
 # title: "Introduction to mixem"
 # author: "Brent Fagan"
 # date: "2017-07-16"
-output:   
-  html_document:
-    keep_md: true
+output: rmarkdown::github_document
 bibliography: "references.bib"
 # vignette: >
 #   %\VignetteIndexEntry{Vignette Title}
